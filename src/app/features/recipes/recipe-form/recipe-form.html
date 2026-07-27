@@ -1,0 +1,66 @@
+<div class="form-container">
+  <div class="form-card">
+    <h2>{{ isEditMode() ? 'Edit Recipe' : 'New Recipe' }}</h2>
+
+    @if (errorMessage()) {
+      <div class="error-banner">{{ errorMessage() }}</div>
+    }
+
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input id="title" type="text" formControlName="title" placeholder="Ex. Pasta Carbonara" />
+        @if (recipeForm.get('title')?.invalid && recipeForm.get('title')?.touched) {
+          <div class="error">Title is a required field.</div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input id="description" type="text" formControlName="description" placeholder="Description" />
+        @if (recipeForm.get('description')?.invalid && recipeForm.get('description')?.touched) {
+          <div class="error">Description is a required field.</div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label>Ingredients</label>
+        
+        <div formArrayName="ingredients">
+          @for (ingredientGroup of ingredients.controls; track $index; let i = $index) {
+            <div [formGroupName]="i" class="ingredient-row">
+              <input type="text" formControlName="name" placeholder="Name" />
+              <input type="text" formControlName="unit" placeholder="Unit (ej: tazas)" />
+              <input type="text" formControlName="quantity" placeholder="Quantity (ej: 2)" />
+              <button type="button" (click)="removeIngredient(i)">X</button>
+            </div>
+          }
+        </div>
+        
+        <button type="button" (click)="addIngredient()">+ Add Ingredient</button>
+        @if (recipeForm.get('ingredients')?.invalid && recipeForm.get('ingredients')?.touched) {
+          <div class="error">At least one ingredient is required.</div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="instructions">Instructions</label>
+        <textarea id="instructions" rows="5" formControlName="instructions" placeholder="Steps..."></textarea>
+        @if (recipeForm.get('instructions')?.invalid && recipeForm.get('instructions')?.touched) {
+          <div class="error">Instructions is a required field.</div>
+        }
+      </div>
+
+      <div class="actions">
+        <button type="submit" [disabled]="recipeForm.invalid || isLoading()">
+          @if (isLoading()) {
+            Saving...
+          } @else {
+            {{ isEditMode() ? 'Update' : 'Create Recipe' }}
+          }
+        </button>
+        <a routerLink="/recipes" class="btn-cancel">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>

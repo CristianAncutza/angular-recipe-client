@@ -1,0 +1,25 @@
+<div class="recipes-container">
+    <header class="header">
+        <h2>My recipes</h2>
+        <a routerLink="/recipes/new" class="btn-primary">+ New Recipe</a>
+    </header>
+
+    @if (isLoading()) {
+    <p class="loading">Loading...</p>
+    } @else {
+        <div class="grid">
+        @for (recipe of recipes(); track recipe.id) {
+            <div class="card">
+            <h3>{{ recipe.title }}</h3>
+            <p>{{ recipe.description }}</p>
+            <div class="actions">
+                <a href="/recipes/edit/{{ recipe.id }}" class="btn-edit">Edit</a>
+                <button (click)="deleteRecipe(recipe.id)" class="btn-delete">Delete</button>
+            </div>
+            </div>
+        } @empty {
+            <p class="empty">No recipes found.</p>
+        }
+        </div>
+    }
+</div>
