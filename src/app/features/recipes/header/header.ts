@@ -1,0 +1,21 @@
+import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { AuthService } from '../../../core/services/auth.service';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-header',
+  imports: [CommonModule],
+  templateUrl: './header.html',
+  styleUrl: './header.scss',
+})
+export class Header {
+    authService = inject(AuthService);
+    private router = inject(Router);
+
+    onLogout(){
+      this.authService.logout();
+      this.router.navigate(['/login']);
+    }
+    
+}

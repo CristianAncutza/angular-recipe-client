@@ -8,6 +8,13 @@ export interface Recipe {
   calories?: number;
   categoryId: number;
   ingredients: RecipeIngredientDto[];
+  recipeIngredients?: Array<{ 
+    quantity: string | number;
+    ingredient: {
+      name: string;
+      unit: string;
+    };
+  }>;
 }
 
 export interface RecipeIngredientDto {

@@ -14,8 +14,22 @@ export class RecipeService{
     private apiUrl = `${environment.apiUrl}/recipes`;
 
     
-    getRecipeById(id: number): Observable<Recipe>{
-        return this.http.get<Recipe>(`${this.apiUrl}/${id}`, { headers: this.getHeaders()});
+    getRecipeById(id: number): Observable<Recipe> {
+      return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(
+        map(response => {          
+          const rawIngredients = response.recipeIngredients || response.RecipeIngredients || [];
+          const ingredientsList = Array.isArray(rawIngredients) ? rawIngredients : [];
+
+          return {
+            ...response,
+            ingredients: ingredientsList.map((ri: any) => ({
+              name: ri.ingredient?.name || ri.Ingredient?.name || '',
+              quantity: ri.quantity || ri.Quantity || '',
+              unit: ri.ingredient?.unit || ri.Ingredient?.unit || ''
+            }))
+          };
+        })
+      );
     }
 
     createRecipe(recipe: Omit<Recipe, 'id'>): Observable<Recipe> {

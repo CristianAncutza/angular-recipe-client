@@ -1,0 +1,10 @@
+<header class="app-header">
+    <div class="logo">RecipeApp</div>
+    
+    @if (authService.currentUser(); as user) {        
+        <div class="user-info">
+            <span>Welcome, <strong>{{ user.username || user.email }}</strong></span>
+            <button (click)="onLogout()" class="btn-logout">Logout</button>
+        </div>
+    }
+</header>

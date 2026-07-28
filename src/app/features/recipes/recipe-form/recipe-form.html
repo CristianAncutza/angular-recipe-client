@@ -16,31 +16,58 @@
       </div>
 
       <div class="form-group">
-        <label for="description">Description</label>
-        <input id="description" type="text" formControlName="description" placeholder="Description" />
-        @if (recipeForm.get('description')?.invalid && recipeForm.get('description')?.touched) {
-          <div class="error">Description is a required field.</div>
+        <label for="categoryId">Category</label>
+        <select id="categoryId" formControlName="categoryId">
+          <option value="" disabled>Select a category</option>
+          @if (categories(); as catList) {
+            @for (category of catList; track category.id) {
+              <option [value]="category.id">{{ category.name }}</option>
+            }
+          }
+        </select>
+        @if (recipeForm.get('categoryId')?.invalid && recipeForm.get('categoryId')?.touched) {
+          <div class="error">Category is a required field.</div>
         }
       </div>
 
       <div class="form-group">
         <label>Ingredients</label>
-        
-        <div formArrayName="ingredients">
-          @for (ingredientGroup of ingredients.controls; track $index; let i = $index) {
-            <div [formGroupName]="i" class="ingredient-row">
-              <input type="text" formControlName="name" placeholder="Name" />
-              <input type="text" formControlName="unit" placeholder="Unit (ej: tazas)" />
-              <input type="text" formControlName="quantity" placeholder="Quantity (ej: 2)" />
-              <button type="button" (click)="removeIngredient(i)">X</button>
+              
+        <div class="ingredients-list">
+          @for (control of ingredients.controls; track $index; let i = $index) {
+            <div class="ingredient-badge">
+              <span>
+                <strong>{{ control.get('quantity')?.value }} {{ control.get('unit')?.value }}</strong> 
+                - {{ control.get('name')?.value }}
+              </span>
+              <button type="button" class="btn-remove" (click)="removeIngredient(i)">&times;</button>
             </div>
           }
         </div>
-        
-        <button type="button" (click)="addIngredient()">+ Add Ingredient</button>
-        @if (recipeForm.get('ingredients')?.invalid && recipeForm.get('ingredients')?.touched) {
-          <div class="error">At least one ingredient is required.</div>
+
+        @if (isAddingIngredient()) {
+          <div class="add-ingredient-box">
+            <div class="inputs-row">
+              <input type="text" [formControl]="tempName" placeholder="ingredient (ex. Onion)" />
+              <input type="number" [formControl]="tempQuantity" placeholder="Quantity (ex: 1)" />
+              <input type="text" [formControl]="tempUnit" placeholder="Unit (ex: kg, spoon)" />
+            </div>
+            <div class="box-actions">
+              <button type="button" class="btn-save" (click)="confirmAddIngredient()">Save</button>
+              <button type="button" class="btn-cancel" (click)="cancelAdd()">Cancel</button>
+            </div>
+          </div>
+        } @else {
+          <button type="button" class="btn-toggle-add" (click)="showAddForm()">
+            + Add ingredient
+          </button>
+          @if (recipeForm.get('ingredients')?.invalid && recipeForm.get('ingredients')?.touched) {
+                <div class="error">At least one ingredient is required.</div>
+              }
         }
+        
+        
+        
       </div>
 
       <div class="form-group">
