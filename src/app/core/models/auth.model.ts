@@ -7,6 +7,7 @@ export interface AuthResponse{
     token: string;
     refreshToken: string;
     expiration: string;
+    username?: string;
 }
 
 export interface RegisterRequest{

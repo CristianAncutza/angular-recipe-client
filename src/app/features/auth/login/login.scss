@@ -39,6 +39,7 @@
     border: 1px solid #cccccc;
     border-radius: 6px;
     font-size: 1rem;
+    box-sizing: border-box;
     transition: border-color 0.2s;
 
     &:focus {
@@ -73,6 +74,7 @@ button[type="submit"] {
   border-radius: 6px;
   font-size: 1rem;
   font-weight: 500;
+  box-sizing: border-box;
   cursor: pointer;
   transition: background-color 0.2s;
 

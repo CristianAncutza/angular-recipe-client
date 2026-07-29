@@ -27,20 +27,20 @@ export class RecipeForm {
   categories = signal<any[]>([]);
 
   recipeForm: FormGroup = this.fb.group({
-    title: ['', [Validators.required, Validators.maxLength(100)]],    
-    categoryId: [1, Validators.required],
-    instructions: ['', [Validators.required]],
-    prepTimeMinutes: [0, Validators.required],
-    servings: [1, Validators.required],
-    calories: [null],    
-    description:[null],
-    ingredients: this.fb.array([], [Validators.required])
+      title: ['', [Validators.required, Validators.maxLength(100)]],    
+      categoryId: [1, Validators.required],
+      instructions: ['', [Validators.required]],
+      prepTimeMinutes: [0, Validators.required],
+      servings: [1, Validators.required],
+      calories: [null],    
+      description:[null],
+      ingredients: this.fb.array([], [Validators.required])
   });
 
   newIngredientGroup = this.fb.group({
-    name: [''],
-    quantity: [''],
-    unit: ['']
+      name: [''],
+      quantity: [''],
+      unit: ['']
   });
   
   isAddingIngredient = signal<boolean>(false);
@@ -58,8 +58,10 @@ export class RecipeForm {
   }
 
   ngOnInit(): void {
+    
     this.loadCategories();
     const idParam = this.route.snapshot.paramMap.get('id');
+    
     if (idParam) {
       this.isEditMode.set(true);
       this.IdRecipe.set(+idParam);
@@ -83,6 +85,7 @@ export class RecipeForm {
         
         this.ingredients.clear();
 
+        //List of ingredients
         const listToProcess = recipe.recipeIngredients?.$values || recipe.recipeIngredients || recipe.ingredients || [];
 
         listToProcess.forEach((ri: any) => {
@@ -93,13 +96,14 @@ export class RecipeForm {
             unit: [ri.unit, Validators.required],
             quantity: [ri.quantity, Validators.required]
           });
+          
           this.ingredients.push(ingredientGroup);
         });
 
         this.isLoading.set(false);
       },
       error: (err) => {
-        this.errorMessage.set('No se pudo cargar la receta.');
+        this.errorMessage.set('Coul not load recipe.');
         this.isLoading.set(false);
         console.error(err);
       }
@@ -192,6 +196,11 @@ export class RecipeForm {
       quantity: [quantity, Validators.required],
       unit: [unit || '', Validators.required]
     }));
+
+    //Clear the inputs
+    this.tempName.reset('');
+    this.tempQuantity.reset(null);
+    this.tempUnit.reset('');
 
     this.isAddingIngredient.set(false);
   }

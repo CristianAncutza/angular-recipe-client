@@ -13,10 +13,10 @@ export class AuthService{
     private apiUrl = `${environment.apiUrl}/auth`;
 
     constructor() {            
-        const email = localStorage.getItem('userEmail');
+        const username = localStorage.getItem('userName');
         
-        if (email) {
-            this.currentUser.set({ email });
+        if (username) {
+            this.currentUser.set({ username });
         }
     }
 
@@ -24,8 +24,9 @@ export class AuthService{
         return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials).pipe(
             tap(response =>{
                 localStorage.setItem('authToken', response.token);
-                localStorage.setItem('userEmail', credentials.email);
-                this.currentUser.set({email: credentials.email});
+                const username = response.username || credentials.email.split('@')[0]; 
+                localStorage.setItem('userName', username);
+                this.currentUser.set({ username });
             })
         )
     }

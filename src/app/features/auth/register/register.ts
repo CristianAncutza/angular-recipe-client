@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './register.scss',
 })
 export class Register {
-private fb = inject(FormBuilder);
+  private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
 

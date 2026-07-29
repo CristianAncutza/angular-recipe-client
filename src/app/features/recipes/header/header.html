@@ -3,7 +3,7 @@
     
     @if (authService.currentUser(); as user) {        
         <div class="user-info">
-            <span>Welcome, <strong>{{ user.username || user.email }}</strong></span>
+            <span>Welcome, <strong>{{ authService.currentUser()?.username }}</strong></span>
             <button (click)="onLogout()" class="btn-logout">Logout</button>
         </div>
     }

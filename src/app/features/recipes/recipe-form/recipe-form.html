@@ -48,8 +48,8 @@
         @if (isAddingIngredient()) {
           <div class="add-ingredient-box">
             <div class="inputs-row">
-              <input type="text" [formControl]="tempName" placeholder="ingredient (ex. Onion)" />
-              <input type="number" [formControl]="tempQuantity" placeholder="Quantity (ex: 1)" />
+              <input type="text" [formControl]="tempName" placeholder="Ingredient (ex. Onion, Salt)" />
+              <input type="number" [formControl]="tempQuantity" placeholder="Quantity (ex: 1, 1.5)" />
               <input type="text" [formControl]="tempUnit" placeholder="Unit (ex: kg, spoon)" />
             </div>
             <div class="box-actions">
@@ -65,9 +65,6 @@
                 <div class="error">At least one ingredient is required.</div>
               }
         }
-        
-        
-        
       </div>
 
       <div class="form-group">

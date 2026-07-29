@@ -1,6 +1,5 @@
-import { map, Observable } from "rxjs"
-import { Recipe } from "../models/recipe"
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable } from "rxjs"
+import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment.development";
 
@@ -13,8 +12,7 @@ export class CategoryService{
     private http = inject(HttpClient);
     private apiUrl = `${environment.apiUrl}/categories`;    
 
-    getCategories(): Observable<any[]> {
-        console.log("CATEGORIAS");
+    getCategories(): Observable<any[]> {        
         return this.http.get<any[]>(this.apiUrl);
     }
 }
