@@ -1,59 +1,47 @@
-# RecipeClient
+# Recipe Demo App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.10.
+A modern, high-performance web application for discovering, managing, and creating recipes. Built with **Angular 20** and a **.NET Core & PostgreSQL** backend.
 
-## Development server
+**Live Demo:** [angular-recipe-client-gray.vercel.app](https://angular-recipe-client-gray.vercel.app)
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+## Overview
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+**Recipe Client** provides a seamless user experience for browsing culinary recipes and managing custom recipes. Built with the latest Angular standards, modern state management, and optimized performance.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Features
 
-```bash
-ng generate component component-name
-```
+- **Recipe Management:** Create, update, and delete custom recipes.
+- **Responsive Design:** Mobile-first layout tailored for mobile, tablet, and desktop screens.
+- **Optimized Performance:** Fast client-side rendering powered by Angular 20 features.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## Tech Stack
 
-## Building
+- **Framework:** Angular 20
+- **Language:** TypeScript
+- **Styling:** CSS3
+- **Backend API:** .NET Core RESTful API + PostgreSQL 
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+## Architecture & Security
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### Clean Architecture
 
-## Running unit tests
+The application follows strict separation of concerns to ensure maintainability, scalability, and testability:
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+- **Core / Domain:** Models, domain interfaces, and core business rules.
+- **Use Cases / Application:** Business logic handlers, state management, and orchestration services.
+- **Infrastructure / Data:** HTTP repositories, API integration services, and storage abstractions.
+- **Presentation / UI:** Angular standalone components, directives, pipes, and presentation logic.
 
-```bash
-ng test
-```
+### Security
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- **JWT Authentication:** Secure token-based access via HttpInterceptor to automatically attach authorization headers to        outgoing requests.
+- **XSS & Input Sanitization:** Contextual escalation protection and data sanitization on dynamic user inputs.
+- **CORS & CSRF Integration:** Configured to communicate securely with the .NET Core API using secure header practices.
