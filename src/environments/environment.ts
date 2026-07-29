@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://localhost:44325/api'
+  apiUrl: 'https://dotnet-recipe-api.onrender.com/api'
 };
