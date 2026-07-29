@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { inject, Injectable, signal } from "@angular/core";
 import { AuthResponse, LoginRequest, RegisterRequest } from "../models/auth.model";
 import { Observable, tap } from "rxjs";
-import { environment } from "../../../environments/environment.development";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
